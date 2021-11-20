@@ -1,0 +1,144 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+}
+
+.tableWithButton{
+    left: 5%;
+    width: 90%;
+    z-index: 0;
+    position: fixed;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    position: absolute;
+}
+
+.deleteWindow {
+    top: calc(50% - 80px);
+    left: calc(50% - 200px);
+    background-color: #faea8e;
+    width: 400px;
+    height: 160px;
+    text-align: center;
+    z-index: inherit;
+    position: absolute;
+    border-radius: 7px;
+    outline: 3px solid #e5e5b9;
+    display: none;
+}
+
+.deleteWindowYesButton {
+    background-color: #10e010;
+    border-radius: 10px;
+    width: 60px;
+    height: 30px;
+    border-color: #81ff54;
+    color: #025005;
+    font-size: 13pt;
+}
+
+.deleteWindowNoButton{
+    background-color: #e21a1a;
+    border-radius: 10px;
+    width: 60px;
+    height: 30px;
+    font-size: 13pt;
+    border-color: #d24e4e;
+    color: #580404;
+}
+
+.changeWindow {
+    top: calc(50% - 257px);
+    left: calc(50% - 190px);
+    background-color: #eefffe;
+    outline: 5px solid #ccfffb;
+    width: 380px;
+    height: 514px;
+    text-align: center;
+    z-index: inherit;
+    position: absolute;
+    border-radius: 10px;
+    display: none;
+}
+
+.changeWindowXButton {
+    height: 20px;
+    font-weight: bold;
+    float: right;
+    cursor: pointer;
+    background-color: #eefffd;
+    border-color: #eefffe;
+    border-width: 0;
+    border-radius: 10px
+}
+
+.changeWindowXButton:hover{
+    background-color: #53b6aa;
+    color: #a9fff8;
+}
+
+.changeWindowChangeButton {
+    width: 147px;
+    height: 30px;
+    background-color: #CCC;
+    border-radius: 4px;
+    border-color: #CCC;
+}
+
+.btn {
+    width: 100px;
+    height: 30px;
+    background-color: #CCC;
+    border-radius: 4px;
+    border-color: #CCC;
+}
+
+.tableAddButton {
+    width: 147px;
+    height: 30px;
+    background-color: #CCC;
+    border-radius: 4px;
+    border-color: #CCC;
+}
+
+td{
+    height: 40px;
+	background-color: #EEE;
+	text-align: center;
+	outline: 1px solid #979797;
+}
+table {
+    counter-reset: rowNumber;
+}
+
+table tbody tr {
+    counter-increment: rowNumber;
+}
+
+table tr td:first-child::before {
+    content: counter(rowNumber);
+    font-weight: bold;
+}
+td:last-child{
+    width: 27%;
+}
+
+thead {
+    outline: 1px solid #00ff47;
+    height: 40px;
+}
+
+th {
+	background-color: #8eef6d;
+	text-align: center;
+	outline: 1px solid #979797;
+}
+
+textarea{
+    resize: none;
+}

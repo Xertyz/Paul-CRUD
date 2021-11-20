@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <title>Таблица со студентами</title>
+    <link rel="stylesheet" type="text/css" href="styleCRUD.css" />
+    <script src="CRUD-JS.js"></script>
+</head>
+<body>
+    <h1><div style="text-align: center"><i><b>ЦПИ-11</b></i></div></h1>
+
+    <div class="tableWithButton">
+        <button type="button" class="tableAddButton add">+ Добавить студента</button>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>№</th>
+                <th class="lastname">Фамилия</th>
+                <th class="firstname">Имя</th>
+                <th class="patronymic">Отчество</th>
+                <th class="phone">Номер телефона</th>
+                <th class="email">E-mail</th>
+                <th>Действие</th>
+            </tr>
+            </thead>
+            <tbody id="table">
+            </tbody>
+        </table>
+    </div>
+
+    <div class="deleteWindow" id="remove">
+        <div><h1>Удалить студента?</h1></div>
+        <br>
+        <form>
+            <div style="text-align: center">
+                <button type="button" class="deleteWindowYesButton submit" data-func="remove">ДА</button>
+                <button type="button" class="deleteWindowNoButton close" data-id="remove">НЕТ</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="changeWindow" id="edit" >
+        <button type="button" class="changeWindowXButton close" data-id="edit">&#10006;</button>
+        <h1 class="modal-title">Изменение студента</h1>
+        <br>
+        <form>
+            <input type="hidden" id="Id" value="-1">
+
+            <p>Фамилия</p>
+            <label for="lastname"></label>
+            <input type="text" id="lastname" width="350px" placeholder="Фамилия" />
+
+            <p>Имя</p>
+            <label for="firstname"></label>
+            <input type="text" id="firstname" width="350px" placeholder="Имя" />
+
+            <p>Отчество</p>
+            <label for="patronymic"></label>
+            <input type="text" id="patronymic" width="350px" placeholder="Отчество" />
+
+            <p>Номер телефона</p>
+            <label for="phone"></label>
+            <input type="tel" id="phone" width="350px" placeholder="Телефон" />
+
+            <p>E-mail</p>
+            <label for="email"></label>
+            <input type="email" id="email" width="350px" placeholder="E-mail" />
+            <br>
+            <br>
+            <div style="text-align: center">
+                <button type="button" class="changeWindowChangeButton btn submit" data-func="submit">Сохранить</button>
+                <button type="button" class="changeWindowChangeButton btn close" data-id="edit" >Отмена</button>
+            </div>
+        </form>
+        <br>
+        <br>
+    </div>
+</body>
+</html>
