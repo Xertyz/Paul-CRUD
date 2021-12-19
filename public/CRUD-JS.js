@@ -35,6 +35,9 @@ for (let num = 13; num < 18; num++) {
 }
 
 const util = new function () {
+    this.ajax = params => {
+        return fetch(params);
+    }
     this.parse = (tpl, obj) => {
         let str = tpl;
         for (let k in obj) {
