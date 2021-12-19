@@ -1,16 +1,10 @@
 const data = new function() {
     let inc = 0;
     let arr = {};
-    //const init = () => {
-    //  util.ajax({url: "/", method: "GET"}, resp => {
-    //      arr = resp;
-    //  });
-    //}
 
     this.create = obj => {
         obj.Id = inc++;
         arr[obj.Id] = obj;
-        util.ajax({method: "POST", url:"/", data: JSON.stringify(obj)});
         return obj;
     };
 
@@ -22,14 +16,12 @@ const data = new function() {
 
     this.update = obj => {
         arr[obj.Id] = obj;
-        util.ajax({method: "PUT", url:"/", data: JSON.stringify(obj)});
         return obj;
     };
 
     this.delete = id => {
         delete arr[id];
     }
-    //init();
 };
 
 for (let num = 13; num < 18; num++) {
@@ -43,9 +35,6 @@ for (let num = 13; num < 18; num++) {
 }
 
 const util = new function () {
-    this.ajax = (params, callback) => {
-        fetch(params).then(data => data.toJson()).then(callback);
-    }
     this.parse = (tpl, obj) => {
         let str = tpl;
         for (let k in obj) {
