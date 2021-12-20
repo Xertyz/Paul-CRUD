@@ -1,7 +1,7 @@
 const data = new function() {
     let inc = 0;
     let arr = {};
-    const init = () => {
+    this.init = () => {
         util.ajax({method: "GET", url:"/"}, data => {
             console.log(data);
         });
@@ -85,6 +85,7 @@ const student = new function() {
     };
 
     const init = () => {
+        data.init();
         this.render();
         util.q(".add").forEach(el => {
             util.listen(el, "click", add);
