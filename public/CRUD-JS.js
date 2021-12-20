@@ -83,7 +83,7 @@ const student = new function() {
         this.render();
         util.id("remove").style.display = "none";
     };
-
+    window.addEventListener("load",init);
     const init = () => {
         data.init();
         this.render();
@@ -169,7 +169,4 @@ const student = new function() {
 		        <button type="button" class="btn rm" data-id="{Id}">Удалить</button>
 		    </td>
 		</tr>`;
-
-    window.addEventListener("load",init);
-
 }
