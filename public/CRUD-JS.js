@@ -1,6 +1,11 @@
 const data = new function() {
     let inc = 0;
     let arr = {};
+    const init = () => {
+        util.ajax({method: "GET", url:"/"}, data => {
+            console.log(data);
+        });
+    };
 
     this.create = obj => {
         obj.Id = inc++;
