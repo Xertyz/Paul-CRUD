@@ -2,7 +2,7 @@ const http = require("http"),
     crud = require("./crud"),
     staticSrv = require("node-static");
 
-const staticFileDir = new staticSrv.Server("./public"); // Размещение статики на сервере
+const staticFileDir = new staticSrv.Server("./public");
 
 const echo = (res, content) => {
     res.end(JSON.stringify(content));
@@ -19,7 +19,7 @@ const echo = (res, content) => {
 };*/
 
 const student = (req, res) => {
-    res.writeHead(200,{"Content-type": "application/json"}); // Создание заголовка запроса
+    res.writeHead(200,{"Content-type": "application/json"});
 
     const url = req.url.substring(1).split("/");
 
@@ -58,7 +58,7 @@ const getAsyncData = (req, callback) => {
 
 const handler = function (req, res) {
     const url = req.url.substring(1).split("/")
-    switch (url[0]) {   // Если первый url после localhost - /student, то вызываем функцию
+    switch (url[0]) {
         case "student":
             student(req, res);
             return;
@@ -66,6 +66,6 @@ const handler = function (req, res) {
     staticFileDir.serve(req, res);
 }
 
-http.createServer(handler).listen(8092, () => {  // Создание сервера на порте с функцией handler
-    console.log("run at 8092")
+http.createServer(handler).listen(8090, () => { 
+    console.log("run at 8090")
 })
