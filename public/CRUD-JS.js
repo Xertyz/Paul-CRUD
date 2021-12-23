@@ -1,49 +1,30 @@
 const data = new function() {
     let inc = 0;
-    let arr = {};
-    this.init = () => {
-        util.ajax({method: "GET", url:"/"}, data => {
-            console.log(data);
-        });
+    const arr = {};
+
+    this.create = (obj, callback) => {
+        util.ajax({method: "POST", body: JSON.stringify(obj)}, callback);
     };
-
-    this.create = obj => {
-        obj.Id = inc++;
-        arr[obj.Id] = obj;
-        util.ajax({method: "POST", url:"/", data: JSON.stringify(obj)});
-        return obj;
+    this.getAll = (callback) => {
+        util.ajax({method: "GET"}, callback);
     };
-
-    this.getAll = () => {
-        return Object.values(arr);
+    this.get = (id, callback) => util.ajax({method: "GET", path: "/"+id}, callback);
+    this.update = (obj, callback) => {
+        util.ajax({method: "PUT", body: JSON.stringify(obj)}, callback);
     };
-
-    this.get = id => arr[id];
-
-    this.update = obj => {
-        arr[obj.Id] = obj;
-        util.ajax({method: "PUT", url:"/", data: JSON.stringify(obj)});
-        return obj;
-    };
-
-    this.delete = id => {
-        delete arr[id];
+    this.delete = (id, callback) => {
+        util.ajax({method: "DELETE", path: "/"+id}, callback);
     }
 };
 
-for (let num = 13; num < 18; num++) {
-    data.create({
-        lastname: "Бурбон",
-        firstname: "Людовик " + num,
-        patronymic: "Людовик " + (num-1),
-        phone: "0000",
-        email: "luvr" + num + "@france.com"
-    });
-}
-
 const util = new function () {
     this.ajax = (params, callback) => {
-        fetch(params).then(data => data.toJson()).then(callback);
+        let url = ""
+        if (params.path != undefined) {
+            url = params.path;
+            delete params.path;
+        }
+        fetch("/student" + url,params).then(data => data.json()).then(callback);
     };
     this.parse = (tpl, obj) => {
         let str = tpl;
@@ -68,24 +49,21 @@ const student = new function() {
             email: util.id("email").value
         };
 
-        if (util.id("Id").value === "-1") data.create(st);
+        if (util.id("Id").value === "-1") data.create(st, () => {this.render()});
         else {
             st.Id = util.id("Id").value;
-            data.update(st);
+            data.update(st, () => {this.render()});
         }
-        this.render();
         util.id("edit").style.display = "none";
     };
 
     this.remove = () => {
-        data.delete(activeStudent);
+        data.delete(activeStudent, () => {this.render();});
         activeStudent = null;
-        this.render();
         util.id("remove").style.display = "none";
     };
 
     const init = () => {
-        data.init();
         this.render();
         util.q(".add").forEach(el => {
             util.listen(el, "click", add);
@@ -112,8 +90,9 @@ const student = new function() {
     const edit = el => {
         util.q("#edit .modal-title")[0].innerHTML = "Изменение студента";
         util.q("#edit form")[0].reset();
-        const st = data.get(el.dataset["id"]);
-        for (let k in st) util.id(k).value = st[k];
+        data.get(el.dataset["id"], st => {
+            for (let k in st) util.id(k).value = st[k];
+        });
         util.id("edit").style.display = "block";
     };
 
@@ -150,10 +129,10 @@ const student = new function() {
 
     this.render = () => {
         clearListener();
-        util.id("table").innerHTML = data
-            .getAll()
-            .map(el => util.parse(tpl, el)).join("");
-        addListener();
+        data.getAll(resp => {
+            util.id("table").innerHTML = resp.map(el => util.parse(tpl, el)).join("");
+            addListener();
+        });
     };
 
     const tpl = `
@@ -171,5 +150,4 @@ const student = new function() {
 		</tr>`;
 
     window.addEventListener("load",init);
-
 }
