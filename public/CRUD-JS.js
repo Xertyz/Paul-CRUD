@@ -62,7 +62,7 @@ const student = new function() {
         activeStudent = null;
         util.id("remove").style.display = "none";
     };
-    window.addEventListener("load",init);
+
     const init = () => {
         this.render();
         util.q(".add").forEach(el => {
